@@ -3,9 +3,11 @@ import { useState } from 'react';
 
 export default function Drawing() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [trail, setTrail] = useState([]);
+  //trailは、オブジェクト型{ x: number; y: number; }[]の配列
+  //useStateの初期値として、[]（空の配列）を渡す
+  const [trail, setTrail] = useState<{ x: number; y: number; }[]>([]);
 
-  const handlePointerMove = ((e) => {
+  const handlePointerMove = ((e: React.MouseEvent<HTMLDivElement>) => {
     setPosition({ x: e.clientX, y: e.clientY });
     setTrail((prevTrail) => [...prevTrail, { x: e.clientX, y: e.clientY }]);
   });
