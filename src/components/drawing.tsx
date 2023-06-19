@@ -2,14 +2,17 @@
 import { useState } from 'react';
 
 export default function Drawing() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const HEADER_HIGHT = 64
+  const [position, setPosition] = useState({ x: 0, y: HEADER_HIGHT });
   //trailは、オブジェクト型{ x: number; y: number; }[]の配列
   //useStateの初期値として、[]（空の配列）を渡す
   const [trail, setTrail] = useState<{ x: number; y: number; }[]>([]);
 
   const handlePointerMove = ((e: React.MouseEvent<HTMLDivElement>) => {
-    setPosition({ x: e.clientX, y: e.clientY });
-    setTrail((prevTrail) => [...prevTrail, { x: e.clientX, y: e.clientY }]);
+    if (e.clientY > HEADER_HIGHT) {
+      setPosition({ x: e.clientX, y: e.clientY });
+      setTrail((prevTrail) => [...prevTrail, { x: e.clientX, y: e.clientY }]);
+    }
   });
 
   return (
@@ -36,22 +39,23 @@ export default function Drawing() {
               backgroundColor: 'red',
               width: '20px',
               height: '20px',
-              transform: `translate(${prevPoint.x}px, ${prevPoint.y}px)`,
+              transform: `translate(${prevPoint.x}px, ${prevPoint.y-HEADER_HIGHT}px)`,
               transition: 'transform 0.05s ease-out',
             }}
           />
         );
       })}
 
-      <div style={{
-        position: 'absolute',
-        backgroundColor: 'red',
-        borderRadius: '50%',
-        transform: `translate(${position.x}px, ${position.y}px)`,
-        left: -10,
-        top: -10,
-        width: 20,
-        height: 20,
+      <div 
+        style={{
+          position: 'absolute',
+          backgroundColor: 'red',
+          borderRadius: '50%',
+          transform: `translate(${position.x}px, ${position.y-HEADER_HIGHT}px)`,
+          left: -10,
+          top: -10,
+          width: 20,
+          height: 20,
       }} />
     </div>
   )
