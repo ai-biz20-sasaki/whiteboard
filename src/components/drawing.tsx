@@ -1,7 +1,11 @@
 "use client"
 import { useState } from 'react';
 
-export default function Drawing(props) {
+type DrawingProps = {
+  headerHeight: number
+}
+
+export default function Drawing(props: DrawingProps) {
   const {headerHeight} = props
   //const HEADER_HIGHT = 64
   const [position, setPosition] = useState({ x: 0, y: headerHeight });
