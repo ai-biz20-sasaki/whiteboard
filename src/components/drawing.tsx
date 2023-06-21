@@ -12,12 +12,12 @@ export default function Drawing(props: DrawingProps) {
   const [isDrawing, setIsDrawing] = useState(false);
   //trailは、オブジェクト型{ x: number; y: number; }[]の配列
   //useStateの初期値として、[]（空の配列）を渡す
-  const [trail, setTrail] = useState<{ x: number; y: number; }[]>([]);
+  const [trail, setTrail] = useState<{ x: number; y: number; size: number; color: string }[]>([]);
 
   const handlePointerMove = ((e: React.PointerEvent<HTMLDivElement>) => {
     if (isDrawing) {
       if (e.clientY > headerHeight) {
-        setTrail((prevTrail) => [...prevTrail, { x: e.clientX, y: e.clientY }]);
+        setTrail((prevTrail) => [...prevTrail, { x: e.clientX, y: e.clientY, size: currentSize, color: currentColor }]);
       }
     }
   });
@@ -53,10 +53,10 @@ export default function Drawing(props: DrawingProps) {
             key={index}
             style={{
               position: 'absolute',
-              backgroundColor: currentColor,
+              backgroundColor: prevPoint.color,
               borderRadius: '50%',
-              width: `${currentSize * 0.8}px`,
-              height: `${currentSize * 0.8}px`,
+              width: `${prevPoint.size * 0.8}px`,
+              height: `${prevPoint.size * 0.8}px`,
               transform: prevPoint ? `translate(${prevPoint.x}px, ${prevPoint.y - headerHeight}px)` : undefined,
               transition: 'transform 0.05s ease-out',
             }}
