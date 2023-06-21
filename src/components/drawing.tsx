@@ -3,10 +3,11 @@ import { useState } from 'react';
 
 type DrawingProps = {
   headerHeight: number
+  currentSize: number
 }
 
 export default function Drawing(props: DrawingProps) {
-  const {headerHeight} = props
+  const {headerHeight, currentSize} = props
   //const HEADER_HIGHT = 64
   const [position, setPosition] = useState({ x: 0, y: headerHeight });
   //trailは、オブジェクト型{ x: number; y: number; }[]の配列
@@ -42,8 +43,9 @@ export default function Drawing(props: DrawingProps) {
             style={{
               position: 'absolute',
               backgroundColor: 'red',
-              width: '20px',
-              height: '20px',
+              borderRadius: '50%',
+              width: `${currentSize * 0.8}px`,
+              height: `${currentSize * 0.8}px`,
               transform: `translate(${prevPoint.x}px, ${prevPoint.y-headerHeight}px)`,
               transition: 'transform 0.05s ease-out',
             }}
@@ -51,17 +53,6 @@ export default function Drawing(props: DrawingProps) {
         );
       })}
 
-      <div 
-        style={{
-          position: 'absolute',
-          backgroundColor: 'red',
-          borderRadius: '50%',
-          transform: `translate(${position.x}px, ${position.y-headerHeight}px)`,
-          left: -10,
-          top: -10,
-          width: 20,
-          height: 20,
-      }} />
     </div>
   )
 }
