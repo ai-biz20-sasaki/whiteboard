@@ -6,6 +6,7 @@ import Footer from "@/components/footer"
 
 export default function Top() {
   const [currentSize, setCurrentSize] = useState(24)
+  const [currentColor, setCurrentColor] = useState("black")
   const [headerHeight, setHeaderHeight] = useState(0)
   const headerRef = useRef<HTMLDivElement>(null);
   //const headerRef = useRef(null); //これはTypeScriptの型定義でエラー
@@ -14,6 +15,13 @@ export default function Top() {
     setCurrentSize(currentSize)
     //console.log("now handleOnClick currentSize:", currentSize)
   }
+
+  function handleOnChange(currentColor:string) {
+    setCurrentColor(currentColor);
+    // 必要に応じて、色が変更された時の処理を追加します
+    // 例えば、選択された色を親コンポーネントに通知するなど
+    //callback(e.target.value);
+  };
 
   useEffect(() => {
     if (headerRef.current) {
@@ -26,9 +34,17 @@ export default function Top() {
   return (
     <>
       <div ref={headerRef}>
-        <Header callback={handleOnClick}/>
+        <Header
+          currentColor={currentColor}
+          callbackOnClick={handleOnClick}
+          callbackOnChange={handleOnChange}
+        />
       </div>
-      <Drawing headerHeight={headerHeight} currentSize={currentSize} />
+      <Drawing
+        headerHeight={headerHeight}
+        currentSize={currentSize}
+        currentColor={currentColor}
+      />
       <Footer />
     </>
   )

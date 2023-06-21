@@ -4,10 +4,11 @@ import { useState } from 'react';
 type DrawingProps = {
   headerHeight: number
   currentSize: number
+  currentColor: string
 }
 
 export default function Drawing(props: DrawingProps) {
-  const {headerHeight, currentSize} = props
+  const {headerHeight, currentSize, currentColor} = props
   const [isDrawing, setIsDrawing] = useState(false);
   //trailは、オブジェクト型{ x: number; y: number; }[]の配列
   //useStateの初期値として、[]（空の配列）を渡す
@@ -52,7 +53,7 @@ export default function Drawing(props: DrawingProps) {
             key={index}
             style={{
               position: 'absolute',
-              backgroundColor: 'red',
+              backgroundColor: currentColor,
               borderRadius: '50%',
               width: `${currentSize * 0.8}px`,
               height: `${currentSize * 0.8}px`,
