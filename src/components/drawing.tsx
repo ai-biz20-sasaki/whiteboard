@@ -8,22 +8,32 @@ type DrawingProps = {
 
 export default function Drawing(props: DrawingProps) {
   const {headerHeight, currentSize} = props
-  //const HEADER_HIGHT = 64
-  const [position, setPosition] = useState({ x: 0, y: headerHeight });
+  const [isDrawing, setIsDrawing] = useState(false);
   //trailは、オブジェクト型{ x: number; y: number; }[]の配列
   //useStateの初期値として、[]（空の配列）を渡す
   const [trail, setTrail] = useState<{ x: number; y: number; }[]>([]);
 
-  const handlePointerMove = ((e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.clientY > headerHeight) {
-      setPosition({ x: e.clientX, y: e.clientY });
-      setTrail((prevTrail) => [...prevTrail, { x: e.clientX, y: e.clientY }]);
+  const handlePointerMove = ((e: React.PointerEvent<HTMLDivElement>) => {
+    if (isDrawing) {
+      if (e.clientY > headerHeight) {
+        setTrail((prevTrail) => [...prevTrail, { x: e.clientX, y: e.clientY }]);
+      }
     }
+  });
+
+  const handlePointerDown = ((e: React.PointerEvent<HTMLDivElement>) => {
+    setIsDrawing(true)
+  });
+
+  const handlePointerUp = ((e: React.PointerEvent<HTMLDivElement>) => {
+    setIsDrawing(false)
   });
 
   return (
     <div
+      onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
       style={{
         position: 'relative',
         width: '100vw',
@@ -46,7 +56,7 @@ export default function Drawing(props: DrawingProps) {
               borderRadius: '50%',
               width: `${currentSize * 0.8}px`,
               height: `${currentSize * 0.8}px`,
-              transform: `translate(${prevPoint.x}px, ${prevPoint.y-headerHeight}px)`,
+              transform: prevPoint ? `translate(${prevPoint.x}px, ${prevPoint.y - headerHeight}px)` : undefined,
               transition: 'transform 0.05s ease-out',
             }}
           />
