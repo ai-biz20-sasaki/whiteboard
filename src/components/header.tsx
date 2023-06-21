@@ -6,13 +6,13 @@ export default function Header() {
       <h1 className="text-xl font-bold mr-3">Size</h1>
       <div className="flex flex-row items-center">
         <button className="p-2">
-          <IconCircle size={2} />
-        </button>
-        <button className="p-2">
-          <IconCircle size={6} />
-        </button>
-        <button className="p-2">
           <IconCircle size={12} />
+        </button>
+        <button className="p-2">
+          <IconCircle size={24} />
+        </button>
+        <button className="p-2">
+          <IconCircle size={36} />
         </button>
       </div>
     </div>    
