@@ -1,4 +1,5 @@
 import IconCircle from "@/components/icon-circle"
+import Image from 'next/image';
 
 type HeaderProps = {
   currentColor: string
@@ -15,6 +16,17 @@ export default function Header(props: HeaderProps) {
 
   return (
     <div className="flex flex-row items-center bg-gray-900 text-white py-4 px-8">
+      <div className="mr-2">
+        <button>
+          <Image 
+            src="/icons/trash.svg"
+            className=""
+            alt="Icon"
+            width={36}
+            height={36}
+          />
+        </button>
+      </div>
       <h1 className="text-xl font-bold mr-3">Size</h1>
       <div className="flex flex-row items-center">
         <button className="p-2 hover:bg-blue-500" onClick={() => callbackOnClick(12)}>
