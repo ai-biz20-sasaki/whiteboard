@@ -8,6 +8,7 @@ export default function Top() {
   const [currentSize, setCurrentSize] = useState(24)
   const [currentColor, setCurrentColor] = useState("black")
   const [headerHeight, setHeaderHeight] = useState(0)
+  const [toggleDelete, setToggleDelete] = useState(false)
   const headerRef = useRef<HTMLDivElement>(null);
   //const headerRef = useRef(null); //これはTypeScriptの型定義でエラー
 
@@ -22,6 +23,10 @@ export default function Top() {
     // 例えば、選択された色を親コンポーネントに通知するなど
     //callback(e.target.value);
   };
+
+  function handleOnChangeTrash() {
+    setToggleDelete(!toggleDelete)
+  }
 
   useEffect(() => {
     if (headerRef.current) {
@@ -38,12 +43,14 @@ export default function Top() {
           currentColor={currentColor}
           callbackOnClick={handleOnClick}
           callbackOnChange={handleOnChange}
+          callbackOnClickTrash={handleOnChangeTrash}
         />
       </div>
       <Drawing
         headerHeight={headerHeight}
         currentSize={currentSize}
         currentColor={currentColor}
+        toggleDelete={toggleDelete}
       />
       <Footer />
     </>

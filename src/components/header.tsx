@@ -5,10 +5,11 @@ type HeaderProps = {
   currentColor: string
   callbackOnClick: (currentSize: number) => void
   callbackOnChange: (currentColor:string) => void
+  callbackOnClickTrash: () => void
 }
 
 export default function Header(props: HeaderProps) {
-  const { currentColor, callbackOnClick, callbackOnChange } = props
+  const { currentColor, callbackOnClick, callbackOnChange, callbackOnClickTrash } = props
 
   const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     callbackOnChange(e.target.value);
@@ -17,7 +18,7 @@ export default function Header(props: HeaderProps) {
   return (
     <div className="flex flex-row items-center bg-gray-900 text-white py-4 px-8">
       <div className="mr-2">
-        <button>
+        <button onClick={callbackOnClickTrash}>
           <Image 
             src="/icons/trash.svg"
             className=""

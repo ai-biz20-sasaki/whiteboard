@@ -1,18 +1,25 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type DrawingProps = {
   headerHeight: number
   currentSize: number
   currentColor: string
+  toggleDelete: boolean
 }
 
 export default function Drawing(props: DrawingProps) {
-  const {headerHeight, currentSize, currentColor} = props
+  const {headerHeight, currentSize, currentColor, toggleDelete} = props
   const [isDrawing, setIsDrawing] = useState(false);
   //trailは、オブジェクト型{ x: number; y: number; }[]の配列
   //useStateの初期値として、[]（空の配列）を渡す
   const [trail, setTrail] = useState<{ x: number; y: number; size: number; color: string }[]>([]);
+
+  useEffect(() => {
+    //Trashボタンが押され状態が変わったら、軌跡の配列をクリアする
+    setTrail([])
+    // This runs on mount *and also* if toggleDelete have changed since the last render
+  }, [toggleDelete]);
 
   const handlePointerMove = ((e: React.PointerEvent<HTMLDivElement>) => {
     if (isDrawing) {
