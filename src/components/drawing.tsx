@@ -65,7 +65,7 @@ export default function Drawing(props: DrawingProps) {
               width: `${prevPoint.size * 0.8}px`,
               height: `${prevPoint.size * 0.8}px`,
               transform: prevPoint ? `translate(${prevPoint.x}px, ${prevPoint.y - headerHeight}px)` : undefined,
-              transition: 'transform 0.05s ease-out',
+              transition: 'transform 0.01s ease-out',
             }}
           />
         );
